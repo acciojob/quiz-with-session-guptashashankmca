@@ -54,3 +54,18 @@ function renderQuestions() {
   }
 }
 renderQuestions();
+
+const questionsElement = document.getElementById('questions');
+let userAnswers = JSON.parse(sessionStorage.getItem('progress')) || [];
+renderQuestions();
+
+document.getElementById('submit').addEventListener('click', function() {
+  let score = 0;
+  for (let i = 0; i < questions.length; i++) {
+    if (userAnswers[i] === questions[i].answer) {
+      score++;
+    }
+  }
+  document.getElementById('score').innerText = 'Your score is ' + score + ' out of ' + questions.length + '.';
+  localStorage.setItem('score', score);
+});
